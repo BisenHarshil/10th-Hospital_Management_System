@@ -1,0 +1,67 @@
+[
+    {
+        "type": "Patient",
+        "name": "Ravi",
+        "age": 45,
+        "symptoms": "fever",
+        "bloodg": "O+"
+    },
+    {
+        "type": "CovidPatient",
+        "name": "Deepak",
+        "age": 55,
+        "symptoms": "fever and breathing",
+        "bloodg": "B+",
+        "oxygen": 94,
+        "vaccinated": true
+    },
+    {
+        "type": "ICUPatient",
+        "name": "Ramesh",
+        "age": 67,
+        "symptoms": "unconscious",
+        "bloodg": "O-",
+        "ventilator": true
+    },
+    {
+        "type": "Patient",
+        "name": "Rajesh",
+        "age": 45,
+        "symptoms": "fever",
+        "bloodg": "B+"
+    },
+    {
+        "type": "ICUPatient",
+        "name": "Vaibhav",
+        "age": 15,
+        "symptoms": "The problem",
+        "bloodg": "B+",
+        "ventilator": true
+    },
+    {
+        "type": "CovidPatient",
+        "name": "Gian",
+        "age": 35,
+        "symptoms": "cough",
+        "bloodg": "O-",
+        "oxygen": 95,
+        "vaccinated": true
+    },
+    {
+        "type": "ICUPatient",
+        "name": "Sanju",
+        "age": 75,
+        "symptoms": "liver",
+        "bloodg": "AB+",
+        "ventilator": true
+    },
+    {
+        "type": "CovidPatient",
+        "name": "Harry",
+        "age": 68,
+        "symptoms": "voilet",
+        "bloodg": "O+",
+        "oxygen": 64,
+        "vaccinated": true
+    }
+]

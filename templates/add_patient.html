@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Patient</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 { color: #c0392b; }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 16px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        button {
+            background-color: #c0392b;
+            color: white;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover { background-color: #a93226; }
+        label { font-weight: bold; font-size: 14px; }
+        a { color: #c0392b; }
+    </style>
+</head>
+<body>
+    <h1>🏥 Add New Patient</h1>
+    <a href="/">← Back to home</a>
+    <br><br>
+
+    <label>Patient Name</label>
+    <input type="text" name="name" placeholder="Enter full name" required>
+
+    <label>Age</label>
+    <input type="number" name="age" placeholder="Enter age" required>
+
+    <label>Symptoms</label>
+    <input type="text" name="symptoms" placeholder="e.g. fever and cough" required>
+
+    <label>Blood Group</label>
+    <select name="bloodg">
+        <option>A+</option>
+        <option>A-</option>
+        <option>B+</option>
+        <option>B-</option>
+        <option>O+</option>
+        <option>O-</option>
+        <option>AB+</option>
+        <option>AB-</option>
+    </select>
+
+    <label>Patient Type</label>
+    <select name="type" id="typeSelect" onchange="showExtra()">
+        <option value="Patient">Normal Patient</option>
+        <option value="CovidPatient">Covid Patient</option>
+        <option value="ICUPatient">ICU Patient</option>
+    </select>
+
+    <div id="covidFields" style="display:none">
+        <label>Oxygen Level (%)</label>
+        <input type="number" name="oxygen" placeholder="e.g. 94">
+        <label>Vaccinated?</label>
+        <select name="vaccinated">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select>
+    </div>
+
+    <div id="icuFields" style="display:none">
+        <label>Ventilator Required?</label>
+        <select name="ventilator">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select>
+    </div>
+
+    <br>
+    <button type="button" onclick="submitForm()">Add Patient</button>
+
+    <script>
+        function showExtra() {
+            var type = document.getElementById('typeSelect').value;
+            document.getElementById('covidFields').style.display = 
+                type === 'CovidPatient' ? 'block' : 'none';
+            document.getElementById('icuFields').style.display = 
+                type === 'ICUPatient' ? 'block' : 'none';
+        }
+
+        function submitForm() {
+            var data = {
+                name: document.querySelector('[name=name]').value,
+                age: document.querySelector('[name=age]').value,
+                symptoms: document.querySelector('[name=symptoms]').value,
+                bloodg: document.querySelector('[name=bloodg]').value,
+                type: document.querySelector('[name=type]').value,
+                oxygen: document.querySelector('[name=oxygen]') ? 
+                        document.querySelector('[name=oxygen]').value : null,
+                vaccinated: document.querySelector('[name=vaccinated]') ? 
+                            document.querySelector('[name=vaccinated]').value : null,
+                ventilator: document.querySelector('[name=ventilator]') ? 
+                            document.querySelector('[name=ventilator]').value : null
+            };
+
+            fetch('/add_patient', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            })
+            .then(r => r.json())
+            .then(response => {
+                alert(response.message);
+                if (response.success) window.location.href = '/';
+            });
+        }
+    </script>
+</body>
+</html>
